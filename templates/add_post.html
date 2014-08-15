@@ -1,0 +1,7 @@
+{% extends "blog.html" %}
+{% load i18n %}
+{% block title  %}{{ block.super }}Home Page {% endblock title  %}
+{% block content %}
+   <h2>Comment created</h2>
+   <p><a href="{%  url 'list_posts' %}">List posts</a> </p>
+{% endblock content %}

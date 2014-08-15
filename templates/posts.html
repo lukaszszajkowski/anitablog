@@ -1,0 +1,51 @@
+{% extends 'blog.html' %}
+
+
+
+{% block posts %}
+    <!-- First Blog Post -->
+    <h1>Posts:</h1>
+    {% for post in posts %}
+        <h2>
+            <a href="#">{{ post.title }}</a>
+        </h2>
+        <p class="lead">
+            by <a href="index.php">{{ post.author }}</a>
+        </p>
+        <p><span class="glyphicon glyphicon-time"></span> Posted on {{ post.created }}</p>
+        <hr>
+        <img src="{{ MEDIA_URL }}{{ post.postimage_set.first }}" class="img-responsive" alt="">
+        <hr>
+        <p>{{ post.content|safe|linebreaks }}</p>
+        <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+
+        <hr>
+
+        {% if post.comment_set.all %}
+            <h2>Comments</h2>
+            <div class="comments">
+                {% for comment in post.comment_set.all %}
+                    <span>
+            <a href="{{ comment.email }}">{{ comment.name }}</a> said on {{ comment.created_on }}
+        </span>
+                    <p>
+                        {{ comment.text }}
+                    </p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <br/>
+
+        <h2>Add Comment</h2>
+
+        <form name="form_{{ post.id }}" action="" method="POST">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" onclick="document.form_{{ post.id }}.submit();" name="submit" value="Submit"/>
+        </form>
+    {% endfor %}
+{% endblock %}
