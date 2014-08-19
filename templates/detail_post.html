@@ -1,0 +1,25 @@
+{% extends 'blog.html' %}
+
+
+{% block posts %}
+
+<h1>{{ post.title }}</h1>
+<p>{{ post.created }}</p>
+<p>{{ post.author }}</p>
+ <img src="{{ MEDIA_URL }}{{ post.postimage_set.first }}" class="img-responsive" alt="">
+<p>{{ post.content|safe|linebreaks }}</p>
+
+
+
+<h2>Comments</h2>
+{% for comment in post.comments.all  %}
+<p>Name:{{ comment.name }}</p>
+<p>Email: {{ comment.email }}</p>
+
+<p>Said:{{ comment.text }}</p>
+{% endfor %}
+
+
+
+{% block sidebar%}{% endblock %}
+{% endblock %}

@@ -2,5 +2,5 @@
 {% load i18n %}
 {% block title  %}{{ block.super }}Home Page {% endblock title  %}
 {% block content %}
-    <p>Hello {{ test }}</p>
+    <a href="{% url 'list_posts' %}">list posts</a>
 {% endblock content %}

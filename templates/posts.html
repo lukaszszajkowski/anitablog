@@ -17,15 +17,14 @@
         <img src="{{ MEDIA_URL }}{{ post.postimage_set.first }}" class="img-responsive" alt="">
         <hr>
         <p>{{ post.content|safe|linebreaks }}</p>
-        <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+        <a class="btn btn-primary" href="{% url 'detail_post' post.slug %}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
 
         <hr>
-
-        {% if post.comment_set.all %}
+        {% if post.comments.all %}
             <h2>Comments</h2>
             <div class="comments">
-                {% for comment in post.comment_set.all %}
+                {% for comment in post.comments.all %}
                     <span>
             <a href="{{ comment.email }}">{{ comment.name }}</a> said on {{ comment.created_on }}
         </span>
@@ -40,12 +39,12 @@
 
         <h2>Add Comment</h2>
 
-        <form name="form_{{ post.id }}" action="" method="POST">
+        <form name="form_{{ post.id }}" action="{%  url 'add_comment' post.slug %}" method="POST">
             {% csrf_token %}
             <table>
                 {{ form.as_table }}
             </table>
-            <input type="submit" onclick="document.form_{{ post.id }}.submit();" name="submit" value="Submit"/>
+            <input type="submit" onclick="document.form_{{ post.id }}.submit();return false;" name="submit" value="Submit"/>
         </form>
     {% endfor %}
 {% endblock %}

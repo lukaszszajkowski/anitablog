@@ -16,4 +16,7 @@ urlpatterns = patterns('',
     (r'^accounts/login/$', 'django.contrib.auth.views.login'),
     url(r'^admin/', include(admin.site.urls)),
 
+    url(r'^blog/(?P<slug>.*)/$', 'blog.views.detail_post',name='detail_post'),
+    url(r'^blog/(?P<slug>.*)/add$', 'blog.views.add_comment',name='add_comment'),
+
 )
